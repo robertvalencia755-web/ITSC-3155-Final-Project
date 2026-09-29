@@ -1,0 +1,28 @@
+Product Requirements Document (PRD)
+Product Vision Statement
+Write your product vision statement here following the template from class or a similar template.
+
+
+Key Terms (Optional)
+Define a bulleted list of any key terms necessary to fully understand your problem context and solution.
+
+
+Problem Context
+Write a paragraph or two explaining the problem your software application aims to solve.
+
+
+Key Hypothesis
+Explain how your product will solve the problem in a paragraph or two.
+
+
+Success Metrics
+Explain how you will measure how successful your product is once you deploy it (eg.have x number of users sign up, make y process faster by z amount, etc).
+
+
+Personas
+Write a short description of at least two hypothetical users of your product and their needs.
+
+
+Use Cases
+Write a short description of how each of your personas will use your product. Write at least three use cases altogether using at least two of your personas.
+
