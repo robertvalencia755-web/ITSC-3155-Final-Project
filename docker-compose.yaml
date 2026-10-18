@@ -1,0 +1,15 @@
+services:
+  db:
+    image: postgres:17
+    container_name: courselens-db
+    environment:
+      POSTGRES_DB: courselens
+      POSTGRES_USER: courselens
+      POSTGRES_PASSWORD: courselens_dev_password
+    ports:
+      - "5433:5432"
+    volumes:
+      - courselens_data:/var/lib/postgresql/data
+
+volumes:
+  courselens_data:
