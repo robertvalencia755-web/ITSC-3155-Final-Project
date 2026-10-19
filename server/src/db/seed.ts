@@ -125,6 +125,10 @@ function hashPassword(password: string): string {
 }
 
 async function main() {
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('Refusing to seed a production database.');
+  }
+
   await db.transaction().execute(async (trx) => {
     // Clear existing rows so the script can be run more than once.
     await sql`

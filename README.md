@@ -81,6 +81,56 @@ Run these from the `server/` folder.
 | `npm run db:migrate` | Applies any migrations that have not run yet |
 | `npm run db:seed` | Deletes all rows and reloads the sample data |
 
+## Sample data
+
+`npm run db:seed` **wipes every table** and inserts fresh sample data, so it is safe to run
+again whenever your local data gets messy. It refuses to run when `NODE_ENV=production`.
+
+All professors, users and reviews are made up. Every seeded account uses the password
+`password123`:
+
+| Username | Email |
+|---|---|
+| `maya_cs` | maya@example.com |
+| `jordan_transfer` | jordan@example.com |
+| `priya_reviews` | priya@example.com |
+| `demo_user` | demo@example.com |
+
+Seeded passwords are hashed with Node's built-in `crypto.scrypt` and stored as
+`scrypt:<salt>:<hash>`. If sign-in ends up using a different hashing library, `hashPassword`
+in `server/src/db/seed.ts` should be changed to match so these accounts can log in.
+
+## Database schema
+
+```mermaid
+erDiagram
+    departments ||--o{ professors : has
+    departments ||--o{ courses : offers
+    professors ||--o{ professor_courses : teaches
+    courses ||--o{ professor_courses : "assigned to"
+    users ||--o{ reviews : writes
+    professor_courses ||--o{ reviews : "reviewed for"
+```
+
+| Table | Holds |
+|---|---|
+| `departments` | Department names |
+| `professors` | Professors and the department they belong to |
+| `courses` | Course code and name, unique per department |
+| `professor_courses` | Which professor teaches which course |
+| `users` | Accounts (username, email, password hash) |
+| `reviews` | One user's review of one course taught by one professor |
+
+A review must point at a professor and course pair that exists in `professor_courses`.
+`overall_rating`, `difficulty` and `usefulness` are whole numbers from 1 to 5.
+
+### Adding a migration
+
+Add a new file in `server/src/db/migrations/` with the next number (for example
+`002_add_course_description.ts`) that exports `up` and `down` functions, update
+`server/src/db/types.ts` to match, then run `npm run db:migrate`. Never edit a migration
+that has already been merged.
+
 ## Resetting the database
 
 To start over with an empty database:
