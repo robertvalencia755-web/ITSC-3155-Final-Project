@@ -12,7 +12,7 @@ import {
   isValidTimeCommitment,
   isValidReviewText,
   validateReview
-} from './reviewValidation';
+} from './reviewValidation.js';
 
 // Valid review used as the baseline for testing
 const validReview = {
