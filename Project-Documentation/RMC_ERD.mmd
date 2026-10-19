@@ -1,0 +1,53 @@
+%%{init: {"theme": "base", "themeVariables": {"background": "#FFFFFF", "primaryColor": "#F5F1E8", "primaryTextColor": "#17212B", "primaryBorderColor": "#334155", "lineColor": "#334155", "secondaryColor": "#E6EDE8", "tertiaryColor": "#F8FAFC", "fontFamily": "Arial", "fontSize": "16px"}}}%%
+erDiagram
+    USERS ||--o{ REVIEWS : writes
+    DEPARTMENTS ||--o{ PROFESSORS : employs
+    DEPARTMENTS ||--o{ COURSES : offers
+    PROFESSORS ||--o{ PROFESSOR_COURSES : teaches
+    COURSES ||--o{ PROFESSOR_COURSES : has
+    PROFESSORS ||--o{ REVIEWS : referenced_in
+    COURSES ||--o{ REVIEWS : receives
+
+    USERS {
+        int user_id PK
+        varchar username UK
+        varchar email UK
+        varchar password_hash
+        timestamptz created_at
+    }
+    DEPARTMENTS {
+        int department_id PK
+        varchar department_name UK
+    }
+    PROFESSORS {
+        int professor_id PK
+        int department_id FK
+        varchar name
+    }
+    COURSES {
+        int course_id PK
+        int department_id FK
+        varchar course_code
+        varchar course_name
+    }
+    PROFESSOR_COURSES {
+        int professor_id PK, FK
+        int course_id PK, FK
+    }
+    REVIEWS {
+        int review_id PK
+        int user_id FK
+        int professor_id FK
+        int course_id FK
+        date date_written
+        int overall_rating
+        varchar grade
+        int difficulty
+        boolean textbook_used
+        varchar semester
+        varchar workload
+        text_array skills
+        int time_commitment
+        int usefulness
+        text review_text
+    }
