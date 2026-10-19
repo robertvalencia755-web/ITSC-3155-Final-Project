@@ -44,10 +44,10 @@ export interface ReviewsTable {
   textbook_used: boolean;
   semester: string;
   workload: string | null;
-  skills: string | null;
+  skills: string[] | null;
   time_commitment: number | null;
   usefulness: number;
-  review_text: string;
+  review_text: string | null;
 }
 
 export interface Database {

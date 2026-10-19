@@ -85,10 +85,10 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     .addColumn('textbook_used', 'boolean', (col) => col.notNull())
     .addColumn('semester', 'varchar(30)', (col) => col.notNull())
     .addColumn('workload', 'varchar(100)')
-    .addColumn('skills', 'text')
+    .addColumn('skills', sql`text[]`)
     .addColumn('time_commitment', 'integer')
     .addColumn('usefulness', 'integer', (col) => col.notNull())
-    .addColumn('review_text', 'text', (col) => col.notNull())
+    .addColumn('review_text', 'text')
     .addForeignKeyConstraint(
       'reviews_professor_course_fk',
       ['professor_id', 'course_id'],
@@ -112,6 +112,10 @@ export async function up(db: Kysely<unknown>): Promise<void> {
       'reviews_time_commitment_check',
       sql`time_commitment IS NULL OR time_commitment >= 0`
     )
+    .addCheckConstraint(
+      'reviews_semester_check',
+      sql`semester ~* '^(Spring|Fall|Summer) [1-9][0-9]{3}$'`
+      )
     .execute();
 }
 
