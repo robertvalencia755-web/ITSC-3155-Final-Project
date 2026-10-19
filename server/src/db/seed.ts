@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { randomBytes, scryptSync } from 'node:crypto';
 import { sql } from 'kysely';
-import { db } from './database';
+import { db } from './database.js';
 
 // Sample data for local development. Professors and users are made up.
 
