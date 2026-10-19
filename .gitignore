@@ -1,0 +1,13 @@
+# Environment variables and secrets
+server/.env
+.env
+
+# Dependencies
+node_modules/
+server/node_modules/
+
+# Build output
+server/dist/
+
+# Operating system files
+.DS_Store
