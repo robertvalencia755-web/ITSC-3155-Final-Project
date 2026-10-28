@@ -2,7 +2,7 @@ import 'dotenv/config';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { FileMigrationProvider, Migrator } from 'kysely/migration';
-import { db } from './database';
+import { db } from './database.js';
 
 async function main() {
   const migrator = new Migrator({
@@ -10,7 +10,7 @@ async function main() {
     provider: new FileMigrationProvider({
       fs,
       path,
-      migrationFolder: path.join(__dirname, 'migrations'),
+      migrationFolder: path.join(import.meta.dirname, 'migrations'),
     }),
   });
 
