@@ -37,7 +37,7 @@ export interface ReviewsTable {
   user_id: number;
   professor_id: number;
   course_id: number;
-  date_written: ColumnType<Date, string | undefined, string | undefined>;
+  date_written: ColumnType<string, string | undefined, string | undefined>;
   overall_rating: number;
   grade: string | null;
   difficulty: number;
