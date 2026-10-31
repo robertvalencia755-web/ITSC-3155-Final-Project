@@ -1,0 +1,129 @@
+@font-face {
+    font-family: 'Histora';
+    src: url('../fonts/HistoraRegular-6Ro2x.ttf') format('truetype');
+}
+
+body {
+    font-family: 'Histora', Arial, sans-serif;
+    background-color: #f4f6f5;
+    color: #333333;
+    margin: 0;
+}
+
+/* Website Header */
+
+header {
+    background-color: #005035;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header img {
+    width: 170px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 16px;
+}
+
+/* Main Content */
+
+main {
+    margin: 40px auto;
+    width: 85%;
+}
+
+/* Course Information */
+
+.course-info {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.department {
+    color: #005035;
+    font-weight: bold;
+}
+
+.course-info h1 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.course-code {
+    color: #666666;
+}
+
+/* Course Rating */
+
+.rating-section {
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.rating {
+    background-color: #f4f6f5;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.rating h3 {
+    color: #005035;
+    font-size: 30px;
+    margin-bottom: 5px;
+}
+
+/* Professor Information */
+
+.professor-section {
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+/* Student Reviews */
+
+.reviews-section {
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+}
+
+.reviews-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.review {
+    background-color: #f4f6f5;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+/* Buttons */
+
+button {
+    background-color: #005035;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+button:hover {
+    background-color: #003b27;
+}
