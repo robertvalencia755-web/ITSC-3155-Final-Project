@@ -2,6 +2,7 @@ import 'dotenv/config';
 import { randomBytes, scryptSync } from 'node:crypto';
 import { sql } from 'kysely';
 import { db } from './database.js';
+import { validateReview } from '../Validation/reviewValidation.js';
 
 // Sample data for local development. Professors and users are made up.
 
@@ -54,14 +55,14 @@ const reviews = [
   },
   {
     user: 'maya_cs', professor: 'Alice Moreno', course: 'ITSC 2214',
-    date_written: '2025-12-18', semester: 'Fall 2025', grade: 'B+',
+    date_written: '2025-12-18', semester: 'Fall 2025', grade: 'B',
     overall_rating: 4, difficulty: 4, usefulness: 5, textbook_used: true,
     workload: 'Heavy', time_commitment: 10, skills: ['Java', 'linked lists', 'trees', 'Big-O analysis'],
     review_text: 'Hard but worth it. Start the projects early, the test cases are strict.',
   },
   {
     user: 'priya_reviews', professor: 'Ben Okafor', course: 'ITSC 2214',
-    date_written: '2025-05-10', semester: 'Spring 2025', grade: 'A-',
+    date_written: '2025-05-10', semester: 'Spring 2025', grade: 'A',
     overall_rating: 4, difficulty: 4, usefulness: 4, textbook_used: false,
     workload: 'Heavy', time_commitment: 9, skills: ['Java', 'recursion', 'hashing', 'graphs'],
     review_text: 'Lectures move fast. Office hours helped a lot with the graph project.',
@@ -82,7 +83,7 @@ const reviews = [
   },
   {
     user: 'maya_cs', professor: 'Carla Nguyen', course: 'ITCS 3160',
-    date_written: '2025-05-12', semester: 'Spring 2025', grade: 'A-',
+    date_written: '2025-05-12', semester: 'Spring 2025', grade: 'A',
     overall_rating: 4, difficulty: 3, usefulness: 5, textbook_used: true,
     workload: 'Moderate', time_commitment: 5, skills: ['SQL', 'ER diagrams', 'normalization'],
     review_text: 'Very practical. The SQL assignments are good resume material.',
@@ -110,7 +111,7 @@ const reviews = [
   },
   {
     user: 'demo_user', professor: 'George Hall', course: 'STAT 2122',
-    date_written: '2025-05-14', semester: 'Spring 2025', grade: 'B+',
+    date_written: '2025-05-14', semester: 'Spring 2025', grade: 'B',
     overall_rating: 3, difficulty: 3, usefulness: 4, textbook_used: true,
     workload: 'Moderate', time_commitment: 5, skills: ['Probability', 'distributions', 'hypothesis testing'],
     review_text: 'Homework is long but graded generously. Useful background for data science.',
@@ -127,6 +128,15 @@ function hashPassword(password: string): string {
 async function main() {
   if (process.env.NODE_ENV === 'production') {
     throw new Error('Refusing to seed a production database.');
+  }
+
+  // Sample reviews must pass the same validation as reviews posted through the API.
+  // course_id is a placeholder here because the real ID is not known until insert.
+  const invalid = reviews.filter((review) => !validateReview({ ...review, course_id: 1 }));
+  if (invalid.length > 0) {
+    throw new Error(
+      `Sample reviews fail validation: ${invalid.map((r) => `${r.user} / ${r.course}`).join(', ')}`
+    );
   }
 
   await db.transaction().execute(async (trx) => {
