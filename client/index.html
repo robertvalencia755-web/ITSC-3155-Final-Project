@@ -1,14 +1,146 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CourseLens</title>
+    <title>CourseLens | Find Your Next Course</title>
+    <link rel="stylesheet" href="/pages/css/home.css">
 </head>
 <body>
-    <h1>CourseLens</h1>
-    <p>Welcome to CourseLens!</p>
 
-    <a href="pages/course.html">View Course Page</a>
+    <!-- Navigation -->
+    <header class="navbar">
+        <a href="/" class="logo">
+    <i data-lucide="search"></i>
+    <span>CourseLens</span>
+</a>
+
+        <nav aria-label="Main navigation">
+            <a href="/">Home</a>
+            <a href="/pages/course.html">Catalogue</a>
+            <a href="#about">About</a>
+            <a href="#profile">Profile</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Find Your Next Course.</h1>
+
+            <p>
+                Explore courses, discover professors,
+                and learn from student reviews.
+            </p>
+
+            <form class="search-bar" role="search">
+                <label class="sr-only" for="course-search">
+                    Search for courses or professors
+                </label>
+                <i data-lucide="search" class="search-icon"></i>
+                <input
+                    id="course-search"
+                    type="search"
+                    placeholder="Search by course, code, or professor"
+                >
+                <button type="submit">Search</button>
+            </form>
+        </section>
+
+
+<!-- Search Results Section -->
+<section
+    class="search-results"
+    id="search-results"
+    aria-label="Course search results"
+    aria-live="polite"
+    hidden
+>
+    <h2 id="results-heading">Search Results</h2>
+
+    <p id="results-count"></p>
+
+    <div id="results-list" class="results-list"></div>
+</section>
+
+        <!-- Features Section -->
+        <section class="features">
+            <h2>Everything You Need to Plan Ahead.</h2>
+
+            <p class="features-description">
+                Explore the tools designed to make course selection easier.
+            </p>
+
+            <div class="feature-grid">
+
+                <a href="/pages/course.html" class="feature-card">
+                    <i data-lucide="book-open" class="feature-icon"></i>
+                    <h3>Browse Courses</h3>
+                    <p>
+                        Discover classes, descriptions,
+                        and course details.
+                    </p>
+                    <span class="arrow" aria-hidden="true">→</span>
+                </a>
+
+                <a href="/pages/course.html" class="feature-card">
+                    <i data-lucide="message-square" class="feature-icon"></i>
+                    <h3>Student Reviews</h3>
+                    <p>
+                        Learn from students who have
+                        taken these courses.
+                    </p>
+                    <span class="arrow" aria-hidden="true">→</span>
+                </a>
+
+                <div class="feature-card">
+                    <i data-lucide="bookmark" class="feature-icon"></i>
+                    <h3>Saved Courses</h3>
+                    <p>
+                        Keep favorite courses in one
+                        convenient place.
+                    </p>
+                    <span class="arrow" aria-hidden="true">→</span>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+
+            <div class="footer-brand">
+                <h3 class="footer-logo">
+    <i data-lucide="search"></i>
+    <span>CourseLens</span>
+</h3>
+                <p>Making course discovery easier.</p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <a href="/">Home</a>
+                <a href="/pages/course.html">Catalogue</a>
+                <a href="#about">About</a>
+            </div>
+
+            <div class="footer-links">
+                <h4>Explore</h4>
+                <a href="/pages/course.html">Courses</a>
+                <a href="/pages/course.html">Student Reviews</a>
+                <a href="#profile">Profile</a>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 CourseLens - ITSC 3155 Final Prototype</p>
+        </div>
+    </footer>
+
+<script type="module" src="/home.js"></script>
 </body>
 </html>
