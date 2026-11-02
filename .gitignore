@@ -8,6 +8,7 @@ server/node_modules/
 
 # Build output
 server/dist/
+client/dist/
 
 # Operating system files
 .DS_Store

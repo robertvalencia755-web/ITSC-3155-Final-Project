@@ -1,0 +1,300 @@
+
+@font-face {
+    font-family: 'Histora';
+    src: url('../fonts/HistoraRegular-6Ro2x.ttf') format('truetype');
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Histora', Arial, sans-serif;
+    background-color: #f4f6f5;
+    color: #333333;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Website Header */
+
+header {
+    background-color: #005035;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header img {
+    width: 170px;
+    height: auto;
+    display: block;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 16px;
+    transition: opacity 0.2s;
+}
+
+nav a:hover {
+    opacity: 0.85;
+}
+
+nav a.active {
+    font-weight: bold;
+    border-bottom: 2px solid #ffffff;
+    padding-bottom: 3px;
+}
+
+/* Main Content Layout */
+
+main {
+    margin: 40px auto;
+    width: 85%;
+    max-width: 1100px;
+    flex: 1;
+}
+
+/* Catalogue Heading */
+
+.catalogue-header {
+    margin-bottom: 25px;
+}
+
+.catalogue-header h1 {
+    color: #005035;
+    font-size: 28px;
+    margin: 0 0 10px;
+}
+
+.catalogue-header p {
+    color: #666666;
+    font-size: 16px;
+    margin: 0;
+}
+
+/* Card Sections */
+
+.card-section {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.card-section h2 {
+    margin: 0 0 20px;
+    font-size: 24px;
+    color: #005035;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-heading h2 {
+    margin: 0;
+}
+
+/* Search and Filters */
+
+.search-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.search-field label {
+    font-weight: bold;
+    color: #555555;
+    font-size: 14px;
+}
+
+.search-field input,
+.search-field select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d8e2dc;
+    border-radius: 5px;
+    background-color: white;
+    color: #333333;
+    font-family: 'Histora', Arial, sans-serif;
+    font-size: 15px;
+}
+
+.search-field input:focus,
+.search-field select:focus {
+    outline: 2px solid #005035;
+    outline-offset: 2px;
+}
+
+.filter-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.search-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Buttons */
+
+button,
+.btn {
+    font-family: 'Histora', Arial, sans-serif;
+    background-color: #005035;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+button:hover,
+.btn:hover {
+    background-color: #003b27;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: #005035;
+    border: 1px solid #005035;
+}
+
+.btn-secondary:hover {
+    background-color: #005035;
+    color: white;
+}
+
+/* Course Results */
+
+.item-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.course-card {
+    background-color: #f4f6f5;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    color: inherit;
+}
+
+.course-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.course-card .dept {
+    color: #005035;
+    font-weight: bold;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+.course-card h3 {
+    margin: 8px 0;
+    font-size: 18px;
+    color: #222222;
+}
+
+.course-card .code {
+    color: #666666;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.course-card .rating-pill {
+    align-self: flex-start;
+    background-color: #ffffff;
+    color: #005035;
+    font-weight: bold;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    border: 1px solid #d8e2dc;
+}
+
+#results-count {
+    color: #666666;
+    font-size: 14px;
+}
+
+/* Messages */
+
+.results-message {
+    color: #666666;
+    font-size: 15px;
+    padding: 10px 0;
+    grid-column: 1 / -1;
+}
+
+/* Responsive Layout */
+
+@media (max-width: 700px) {
+    header {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    nav a {
+        margin-left: 0;
+    }
+
+    main {
+        width: 92%;
+        margin: 25px auto;
+    }
+
+    .filter-grid {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .card-section {
+        padding: 20px;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+        gap: 10px;
+        flex-direction: column;
+    }
+}

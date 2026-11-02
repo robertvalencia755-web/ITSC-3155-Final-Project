@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CourseLens - Course Catalogue</title>
+    <link rel="stylesheet" href="/assets/css/catalogue.css">
+</head>
+
+<body>
+
+    <!-- Website Header -->
+    <header>
+        <a href="/">
+            <img src="../assets/images/FInal CourseLen Logo Design.png" alt="CourseLens Logo">
+        </a>
+
+        <nav>
+            <a href="/">Home</a>
+            <a href="catalogue.html" class="active">Catalogue</a>
+            <a href="profile.html">Profile</a>
+            <a href="auth/logIn_page.html">Log In</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- Catalogue Heading -->
+        <section class="catalogue-header">
+            <h1>Course Catalogue</h1>
+            <p>Find courses by name, course code, professor, or skills.</p>
+        </section>
+
+        <!-- Search and Filters -->
+        <section class="card-section">
+            <h2>Find Courses</h2>
+
+            <form id="catalogue-search-form">
+
+                <div class="search-field">
+                    <label for="course-search">Search</label>
+                    <input
+                        type="search"
+                        id="course-search"
+                        placeholder="Course name, code, professor, or skill..."
+                    >
+                </div>
+
+                <div class="filter-grid">
+
+                    <div class="search-field">
+                        <label for="department-filter">Department</label>
+                        <select id="department-filter">
+                            <option value="">All Departments</option>
+                        </select>
+                    </div>
+
+                    <div class="search-field">
+                        <label for="professor-filter">Professor</label>
+                        <select id="professor-filter">
+                            <option value="">All Professors</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="search-actions">
+                    <button type="submit" class="btn">Search Courses</button>
+                    <button type="reset" id="clear-filters" class="btn btn-secondary">
+                        Clear Filters
+                    </button>
+                </div>
+
+            </form>
+        </section>
+
+        <!-- Search Results -->
+        <section class="card-section">
+            <div class="section-heading">
+                <h2>Courses</h2>
+                <span id="results-count">Loading courses...</span>
+            </div>
+
+            <div id="results-list" class="item-grid">
+                <!-- Course cards will be inserted here by JavaScript -->
+            </div>
+        </section>
+
+    </main>
+
+    <script type="module" src="/assets/js/catalogue.js"></script>
+
+</body>
+</html>
