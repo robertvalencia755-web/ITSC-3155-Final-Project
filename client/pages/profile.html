@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CourseLens - User Profile</title>
+    <link rel="stylesheet" href="/assets/css/profile.css">
+</head>
+
+<body>
+
+    <header>
+        <a href="/">
+            <img src="../assets/images/FInal CourseLen Logo Design.png" alt="CourseLens Logo">
+        </a>
+
+        <nav>
+            <a href="/">Home</a>
+            <a href="#">Catalogue</a>
+            <a href="profile.html" class="active">Profile</a>
+            <a href="auth/logIn_page.html">Log In</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- Account Information Section -->
+        <section class="profile-header-card">
+            <h1>Account Information</h1>
+
+            <!-- User Profile Picture and Details -->
+            <div class="profile-user-overview">
+                <div class="profile-avatar-container">
+                    <img src="images/default-avatar.svg" alt="Profile Picture" class="profile-avatar">
+                </div>
+
+                <div class="profile-details">
+                    <div class="profile-row">
+                        <span class="profile-label">Username:</span>
+                        <span class="profile-value">TemplateUser</span>
+                        <button type="button" class="btn btn-secondary btn-sm">Change</button>
+                    </div>
+
+                    <div class="profile-row">
+                        <span class="profile-label">Email:</span>
+                        <span class="profile-value">templateuser@example.com</span>
+                        <button type="button" class="btn btn-secondary btn-sm">Change</button>
+                    </div>
+
+                    <div class="profile-row">
+                        <span class="profile-label">Account Created:</span>
+                        <span class="profile-value">10/28/2026</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UNCC Verification Box -->
+            <div class="uncc-card-box">
+                <div class="uncc-card-info">
+                    <h3>UNCC Verification <span class="uncc-badge">Linked</span></h3>
+                    <p><strong>Linked Account:</strong> template@charlotte.edu</p>
+                </div>
+                <div class="uncc-buttons">
+                    <button type="button" class="btn btn-secondary btn-sm">Unlink</button>
+                    <button type="button" class="btn btn-sm">Link Account</button>
+                </div>
+            </div>
+
+            <!-- Account Actions -->
+            <div class="profile-actions">
+                <button type="button" class="btn btn-secondary">Change Password</button>
+                <button type="button" class="btn btn-secondary">Log Out</button>
+                <button type="button" class="btn btn-danger">Delete Account</button>
+            </div>
+        </section>
+
+        <!-- Saved Section -->
+        <section class="card-section">
+            <div class="section-heading">
+                <h2>Saved Courses</h2>
+                <button type="button" class="btn btn-secondary btn-sm">See More</button>
+            </div>
+
+            <div class="item-grid">
+                <!-- Saved item 1 -->
+                <div class="course-card">
+                    <div>
+                        <span class="dept">Computer Science</span>
+                        <h3>Software Engineering</h3>
+                        <p class="code">ITSC 3155</p>
+                    </div>
+                    <div class="rating-pill">4.5 / 5 ★</div>
+                </div>
+
+                <!-- Saved item 2 -->
+                <div class="course-card">
+                    <div>
+                        <span class="dept">Computer Science</span>
+                        <h3>Data Structures &amp; Algorithms</h3>
+                        <p class="code">ITCS 2214</p>
+                    </div>
+                    <div class="rating-pill">4.0 / 5 ★</div>
+                </div>
+
+                <!-- Saved item 3 -->
+                <div class="course-card">
+                    <div>
+                        <span class="dept">Software &amp; Information Systems</span>
+                        <h3>Intro to Info Security</h3>
+                        <p class="code">ITIS 3110</p>
+                    </div>
+                    <div class="rating-pill">4.2 / 5 ★</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reviews Section -->
+        <section class="card-section">
+            <div class="section-heading">
+                <h2>Your Reviews</h2>
+                <button type="button" class="btn btn-secondary btn-sm">See More</button>
+            </div>
+
+            <!-- Review item 1 -->
+            <div class="profile-review-card">
+                <div class="review-top-row">
+                    <h3>ITSC 3155 - Software Engineering</h3>
+                    <span class="review-rating-badge">5 / 5 ★</span>
+                </div>
+                <div class="review-meta">
+                    <strong>Professor:</strong> Prof. Bruce Long &bull; <strong>Semester:</strong> Fall 2026
+                </div>
+                <p class="review-body">
+                    Great hands-on team project experience. Staying on schedule with sprint milestones and regular pull request reviews made the final submission seamless.
+                </p>
+            </div>
+
+            <!-- Review item 2 -->
+            <div class="profile-review-card">
+                <div class="review-top-row">
+                    <h3>ITCS 1212 - Intro to Computer Science I</h3>
+                    <span class="review-rating-badge">4 / 5 ★</span>
+                </div>
+                <div class="review-meta">
+                    <strong>Professor:</strong> Prof. Nadia Najjar &bull; <strong>Semester:</strong> Spring 2026
+                </div>
+                <p class="review-body">
+                    Clear grading criteria and helpful lab teaching assistants. Perfect course for getting comfortable with programming fundamentals.
+                </p>
+            </div>
+
+            <!-- Review item 3 -->
+            <div class="profile-review-card">
+                <div class="review-top-row">
+                    <h3>MATH 1241 - Calculus I</h3>
+                    <span class="review-rating-badge">3 / 5 ★</span>
+                </div>
+                <div class="review-meta">
+                    <strong>Professor:</strong> Prof. John Taylor &bull; <strong>Semester:</strong> Fall 2025
+                </div>
+                <p class="review-body">
+                    Challenging workload with weekly quizzes, but exam questions were directly aligned with the practice problem sets.
+                </p>
+            </div>
+        </section>
+
+        <!-- Liked Section -->
+        <section class="card-section">
+            <div class="section-heading">
+                <h2>Liked Reviews</h2>
+                <button type="button" class="btn btn-secondary btn-sm">See More</button>
+            </div>
+
+            <!-- Liked item 1 -->
+            <div class="liked-card">
+                <div class="review-top-row">
+                    <h3>ITCS 3160 - Database Design</h3>
+                    <span class="review-rating-badge">5 / 5 ★</span>
+                </div>
+                <div class="review-meta">
+                    Reviewed by <strong>maya_cs</strong> &bull; Prof. Harini Ramaprasad
+                </div>
+                <p class="review-body">
+                    &ldquo;The SQL and relational algebra projects are super relevant to real-world backend development. Make sure you practice normalization rules.&rdquo;
+                </p>
+            </div>
+
+            <!-- Liked item 2 -->
+            <div class="liked-card">
+                <div class="review-top-row">
+                    <h3>ITCS 3145 - Parallel and Distributed Computing</h3>
+                    <span class="review-rating-badge">4 / 5 ★</span>
+                </div>
+                <div class="review-meta">
+                    Reviewed by <strong>jordan_transfer</strong> &bull; Prof. Erik Saule
+                </div>
+                <p class="review-body">
+                    &ldquo;Covers OpenMP, MPI, and CUDA. The lab assignments take time, but the concepts are extremely rewarding if you enjoy low-level performance.&rdquo;
+                </p>
+            </div>
+
+            <!-- Liked item 3 -->
+            <div class="liked-card">
+                <div class="review-top-row">
+                    <h3>ITSC 2175 - Logic and Algorithms</h3>
+                    <span class="review-rating-badge">4 / 5 ★</span>
+                </div>
+                <div class="review-meta">
+                    Reviewed by <strong>priya_reviews</strong> &bull; Prof. Christine Richardson
+                </div>
+                <p class="review-body">
+                    &ldquo;Discrete math is heavy on proofs. Attending recitations and forming a study group made a huge difference in staying ahead.&rdquo;
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+</html>
