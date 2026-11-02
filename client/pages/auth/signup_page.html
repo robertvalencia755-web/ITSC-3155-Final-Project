@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CourseLens - Sign Up</title>
+    <link rel="stylesheet" href="../../assets/css/auth.css">
+</head>
+
+<body>
+
+    <header>
+        <a href="../../index.html">
+            <img src="../../assets/images/FInal CourseLen Logo Design.png" alt="CourseLens Logo">
+        </a>
+        <nav>
+            <a href="../../index.html">Home</a>
+            <a href="#">Catalogue</a>
+            <a href="../profile.html">Profile</a>
+            <a href="logIn_page.html">Log In</a>
+        </nav>
+    </header>
+
+    <div class="auth-card">
+
+        <h1>Create an Account</h1>
+        <p class="auth-subtitle">Join CourseLens to explore and review courses.</p>
+
+        <!-- Email, Username, and Password submission boxes + button-->
+        <form action="/submit-data" method="POST">
+
+            <!-- Enter an email -->
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            </div>
+
+            <!-- Enter a username -->
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Choose a username" required>
+            </div>
+
+            <!-- Enter a password -->
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
+            </div>
+
+            <!-- Verify password -->
+            <div class="form-group">
+                <label for="verify_password">Verify Password</label>
+                <input type="password" id="verify_password" name="verify_password" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit">Create Account</button>
+
+        </form>
+
+        <div class="auth-footer">
+            <p>Already have an account? <a href="logIn_page.html">Log In</a></p>
+        </div>
+
+    </div>
+
+</body>
+</html>

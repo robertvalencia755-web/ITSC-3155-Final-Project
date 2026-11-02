@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CourseLens - Log In</title>
+    <link rel="stylesheet" href="../../assets/css/auth.css">
+</head>
+
+<body>
+
+    <header>
+        <a href="../../index.html">
+            <img src="../../assets/images/FInal CourseLen Logo Design.png" alt="CourseLens Logo">
+        </a>
+        <nav>
+            <a href="../../index.html">Home</a>
+            <a href="#">Catalogue</a>
+            <a href="../profile.html">Profile</a>
+            <a href="logIn_page.html" class="active">Log In</a>
+        </nav>
+    </header>
+
+    <div class="auth-card">
+
+        <h1>Log In</h1>
+        <p class="auth-subtitle">Welcome back! Please enter your details.</p>
+
+        <!-- Email and Password submission boxes + button-->
+        <form action="/submit-data" method="POST">
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit">Log In</button>
+
+            <div class="auth-divider">or</div>
+
+            <button type="button" class="btn-secondary">UNCC Log In</button>
+
+        </form>
+
+        <div class="auth-footer">
+            <p>No account? <a href="signup_page.html">Sign Up</a></p>
+        </div>
+
+    </div>
+
+</body>
+</html>
