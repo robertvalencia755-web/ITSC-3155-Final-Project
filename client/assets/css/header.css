@@ -1,0 +1,80 @@
+
+/* CourseLens Universal Header */
+
+@font-face {
+    font-family: "Historia";
+    src: url("/assets/fonts/HistoraRegular-6Ro2x.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+header[data-site-header] {
+    background: #005035;
+    min-height: 80px;
+    padding: 15px 4%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+}
+
+header[data-site-header] .site-logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+header[data-site-header] .site-logo img {
+    width: 180px;
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+header[data-site-header] nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+header[data-site-header] nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-family: "Historia", Arial, sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    margin: 0;
+}
+
+header[data-site-header] nav a:hover,
+header[data-site-header] nav a[aria-current="page"] {
+    color: #b3a369;
+}
+
+header[data-site-header] nav a:focus-visible,
+header[data-site-header] .site-logo:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 4px;
+}
+
+@media (max-width: 650px) {
+    header[data-site-header] {
+        flex-direction: column;
+        padding: 16px;
+    }
+
+    header[data-site-header] .site-logo img {
+        width: 150px;
+    }
+
+    header[data-site-header] nav {
+        justify-content: center;
+        gap: 12px 18px;
+    }
+
+    header[data-site-header] nav a {
+        font-size: 18px;
+    }
+}

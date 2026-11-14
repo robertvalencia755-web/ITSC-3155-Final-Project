@@ -39,6 +39,13 @@ a {
     gap: 8px;
 }
 
+.footer-logo img {
+    width: 180px;
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
 .logo {
     color: #111111;
     font-size: 26px;
@@ -246,12 +253,12 @@ a {
 }
 
 .footer-brand h3 {
-    font-size: 22px;
+    font-size: 26px;
     margin: 0 0 12px;
 }
 
 .footer-brand p {
-    font-size: 18px;
+    font-size: 19px;
     margin: 0;
 }
 
@@ -263,12 +270,12 @@ a {
 
 .footer-links h4 {
     margin: 0;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .footer-links a {
     color: var(--white);
-    font-size: 15px;
+    font-size: 18px;
 }
 
 .footer-links a:hover {
@@ -282,7 +289,7 @@ a {
 
 .footer-bottom p {
     margin: 0;
-    font-size: 13px;
+    font-size: 15px;
     color: #d1ded8;
 }
 

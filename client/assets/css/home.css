@@ -32,11 +32,11 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: var(--white);
+    background: var(--green);
 }
 
 .logo {
-    color: #111111;
+    color: var(--white);
     font-size: 26px;
     font-weight: 700;
 }
@@ -47,13 +47,13 @@ a {
 }
 
 .navbar nav a {
-    color: #111111;
+    color: var(--white);
     font-size: 18px;
     font-weight: 700;
 }
 
 .navbar nav a:hover {
-    color: var(--green);
+    color: var(--gold);
 }
 
 /* Hero */
@@ -210,12 +210,12 @@ a.feature-card:hover {
 }
 
 .footer-brand h3 {
-    font-size: 22px;
+    font-size: 26px;
     margin: 0 0 12px;
 }
 
 .footer-brand p {
-    font-size: 18px;
+    font-size: 19px;
     margin: 0;
 }
 
@@ -227,12 +227,12 @@ a.feature-card:hover {
 
 .footer-links h4 {
     margin: 0;
-    font-size: 16px;
+    font-size: 20px;
 }
 
 .footer-links a {
     color: var(--white);
-    font-size: 15px;
+    font-size: 18px;
 }
 
 .footer-links a:hover {
@@ -246,10 +246,16 @@ a.feature-card:hover {
 
 .footer-bottom p {
     margin: 0;
-    font-size: 13px;
+    font-size: 15px;
     color: #d1ded8;
 }
 
+.footer-logo img {
+    width: 180px;
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
 
 /* Search Results Section */
 .search-results {
