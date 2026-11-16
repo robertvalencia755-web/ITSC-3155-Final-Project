@@ -8,8 +8,7 @@ export interface UsersTable {
   password_hash: string;
   created_at: ColumnType<Date, string | undefined, never>;
   profile_picture: ColumnType<string, string | undefined, string>;
-  saved_reviews?: string;
-  user_reviews?: string;
+  saved_courses: ColumnType<number[], number[] | undefined, number[]>;
 }
 
 export interface DepartmentsTable {

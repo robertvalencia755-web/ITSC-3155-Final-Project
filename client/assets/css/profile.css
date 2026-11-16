@@ -373,6 +373,38 @@ button:hover, .btn:hover {
     font-weight: bold;
 }
 
+.form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #444444;
+    margin-bottom: 6px;
+}
+
+.modal-input {
+    font-family: 'Histora', Arial, sans-serif;
+    font-size: 15px;
+    padding: 10px 14px;
+    border: 1px solid #d8e2dc;
+    border-radius: 5px;
+    background-color: #f4f6f5;
+    color: #333333;
+    outline: none;
+    transition: border-color 0.2s, background-color 0.2s;
+    width: 100%;
+}
+
+.modal-input:focus {
+    border-color: #005035;
+    background-color: white;
+}
+
 .profile-details {
     flex: 1;
     min-width: 250px;
@@ -470,11 +502,22 @@ button:hover, .btn:hover {
     flex-direction: column;
     justify-content: space-between;
     transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    color: inherit;
 }
 
 .course-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.empty-section-message {
+    color: #666666;
+    font-size: 15px;
+    font-style: italic;
+    padding: 15px 0;
+    margin: 0;
+    grid-column: 1 / -1;
 }
 
 .course-card .dept {
