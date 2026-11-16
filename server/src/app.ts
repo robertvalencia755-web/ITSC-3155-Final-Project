@@ -11,7 +11,7 @@ const app = express();
 
 // Lets a frontend dev server on another port (for example Vite on 5173) call the API.
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: "5mb" }));
 
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "ok" });

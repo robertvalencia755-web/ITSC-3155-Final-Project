@@ -21,6 +21,7 @@ router.get('/:id', async (req, res) => {
       .select([
         'u.user_id',
         'u.username',
+        'u.profile_picture',
         'u.created_at',
         sql<number>`count(r.review_id)::int`.as('review_count'),
       ])
@@ -38,6 +39,49 @@ router.get('/:id', async (req, res) => {
     console.error('Failed to fetch user:', error);
     res.status(500).json({
       error: 'Failed to fetch user',
+    });
+  }
+});
+
+// PATCH /api/users/:id/avatar
+// Updates the user's profile picture.
+router.patch('/:id/avatar', async (req, res) => {
+  const userId = parseId(req.params.id);
+  if (!userId) {
+    res.status(400).json({ error: 'User ID must be a positive integer' });
+    return;
+  }
+
+  const { profile_picture } = req.body ?? {};
+  if (!profile_picture || typeof profile_picture !== 'string') {
+    res.status(400).json({ error: 'profile_picture is required and must be a string' });
+    return;
+  }
+
+  // Basic validation: ensure data URL or valid path
+  if (!profile_picture.startsWith('data:image/') && !profile_picture.startsWith('/')) {
+    res.status(400).json({ error: 'profile_picture must be an image data URL or valid path' });
+    return;
+  }
+
+  try {
+    const updated = await db
+      .updateTable('users')
+      .set({ profile_picture })
+      .where('user_id', '=', userId)
+      .returning(['user_id', 'username', 'profile_picture'])
+      .executeTakeFirst();
+
+    if (!updated) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
+
+    res.json(updated);
+  } catch (error) {
+    console.error('Failed to update profile picture:', error);
+    res.status(500).json({
+      error: 'Failed to update profile picture',
     });
   }
 });

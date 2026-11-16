@@ -106,12 +106,49 @@ describe('professors, departments and users', () => {
     const response = await request(app).get(`/api/users/${user.user_id}`);
 
     expect(response.status).toBe(200);
-    expect(response.body).toMatchObject({ username: 'maya_cs', review_count: 3 });
+    expect(response.body).toMatchObject({
+      username: 'maya_cs',
+      review_count: 3,
+      profile_picture: '/assets/images/DefaultProfile.jpeg',
+    });
     expect(response.body).not.toHaveProperty('email');
     expect(response.body).not.toHaveProperty('password_hash');
 
     const reviews = await request(app).get(`/api/users/${user.user_id}/reviews`);
     expect(reviews.body).toHaveLength(3);
+  });
+
+  it('updates user profile picture via PATCH /api/users/:id/avatar', async () => {
+    const user = await db.selectFrom('users').select('user_id').where('username', '=', 'demo_user').executeTakeFirstOrThrow();
+    const testDataUrl = 'data:image/jpeg;base64,/9j/4AAQSkZJRg==';
+
+    const patchRes = await request(app)
+      .patch(`/api/users/${user.user_id}/avatar`)
+      .send({ profile_picture: testDataUrl });
+
+    expect(patchRes.status).toBe(200);
+    expect(patchRes.body).toMatchObject({
+      user_id: user.user_id,
+      profile_picture: testDataUrl,
+    });
+
+    const getRes = await request(app).get(`/api/users/${user.user_id}`);
+    expect(getRes.status).toBe(200);
+    expect(getRes.body.profile_picture).toBe(testDataUrl);
+  });
+
+  it('rejects invalid profile picture update requests', async () => {
+    const user = await db.selectFrom('users').select('user_id').where('username', '=', 'demo_user').executeTakeFirstOrThrow();
+
+    const emptyRes = await request(app)
+      .patch(`/api/users/${user.user_id}/avatar`)
+      .send({});
+    expect(emptyRes.status).toBe(400);
+
+    const invalidRes = await request(app)
+      .patch(`/api/users/${user.user_id}/avatar`)
+      .send({ profile_picture: 'not-a-valid-image-url' });
+    expect(invalidRes.status).toBe(400);
   });
 });
 

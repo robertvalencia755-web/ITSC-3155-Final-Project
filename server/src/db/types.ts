@@ -7,6 +7,9 @@ export interface UsersTable {
   email: string;
   password_hash: string;
   created_at: ColumnType<Date, string | undefined, never>;
+  profile_picture: ColumnType<string, string | undefined, string>;
+  saved_reviews?: string;
+  user_reviews?: string;
 }
 
 export interface DepartmentsTable {
