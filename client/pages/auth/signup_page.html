@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CourseLens - Sign Up</title>
+    <script type="module" src="/assets/js/auth.js"></script>
     <link rel="stylesheet" href="../../assets/css/auth.css">
 </head>
 
@@ -27,30 +28,32 @@
         <p class="auth-subtitle">Join CourseLens to explore and review courses.</p>
 
         <!-- Email, Username, and Password submission boxes + button-->
-        <form action="/submit-data" method="POST">
+        <form id="signup-form" novalidate>
+
+            <p id="form-error" class="form-error" role="alert" hidden></p>
 
             <!-- Enter an email -->
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email">
             </div>
 
             <!-- Enter a username -->
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" id="username" name="username" placeholder="Choose a username" required>
+                <input type="text" id="username" name="username" placeholder="Choose a username" required minlength="3" maxlength="30" pattern="[A-Za-z0-9_]+" autocomplete="username">
             </div>
 
             <!-- Enter a password -->
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="••••••••" required>
+                <input type="password" id="password" name="password" placeholder="At least 8 characters" required minlength="8" maxlength="128" autocomplete="new-password">
             </div>
 
             <!-- Verify password -->
             <div class="form-group">
                 <label for="verify_password">Verify Password</label>
-                <input type="password" id="verify_password" name="verify_password" placeholder="••••••••" required>
+                <input type="password" id="verify_password" name="verify_password" placeholder="••••••••" required autocomplete="new-password">
             </div>
 
             <button type="submit">Create Account</button>
