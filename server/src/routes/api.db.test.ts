@@ -106,12 +106,126 @@ describe('professors, departments and users', () => {
     const response = await request(app).get(`/api/users/${user.user_id}`);
 
     expect(response.status).toBe(200);
-    expect(response.body).toMatchObject({ username: 'maya_cs', review_count: 3 });
+    expect(response.body).toMatchObject({
+      username: 'maya_cs',
+      review_count: 3,
+      profile_picture: '/assets/images/DefaultProfile.jpeg',
+    });
     expect(response.body).not.toHaveProperty('email');
     expect(response.body).not.toHaveProperty('password_hash');
 
     const reviews = await request(app).get(`/api/users/${user.user_id}/reviews`);
     expect(reviews.body).toHaveLength(3);
+  });
+
+  it('updates user profile picture via PATCH /api/users/:id/avatar', async () => {
+    const user = await db.selectFrom('users').select('user_id').where('username', '=', 'demo_user').executeTakeFirstOrThrow();
+    const testDataUrl = 'data:image/jpeg;base64,/9j/4AAQSkZJRg==';
+
+    const patchRes = await request(app)
+      .patch(`/api/users/${user.user_id}/avatar`)
+      .send({ profile_picture: testDataUrl });
+
+    expect(patchRes.status).toBe(200);
+    expect(patchRes.body).toMatchObject({
+      user_id: user.user_id,
+      profile_picture: testDataUrl,
+    });
+
+    const getRes = await request(app).get(`/api/users/${user.user_id}`);
+    expect(getRes.status).toBe(200);
+    expect(getRes.body.profile_picture).toBe(testDataUrl);
+  });
+
+  it('rejects invalid profile picture update requests', async () => {
+    const user = await db.selectFrom('users').select('user_id').where('username', '=', 'demo_user').executeTakeFirstOrThrow();
+
+    const emptyRes = await request(app)
+      .patch(`/api/users/${user.user_id}/avatar`)
+      .send({});
+    expect(emptyRes.status).toBe(400);
+
+    const invalidRes = await request(app)
+      .patch(`/api/users/${user.user_id}/avatar`)
+      .send({ profile_picture: 'not-a-valid-image-url' });
+    expect(invalidRes.status).toBe(400);
+  });
+
+  it('updates username and email via PATCH /api/users/:id', async () => {
+    const user = await db.selectFrom('users').select('user_id').where('username', '=', 'demo_user').executeTakeFirstOrThrow();
+
+    // 1. Fetch account (includes email)
+    const accountRes = await request(app).get(`/api/users/${user.user_id}/account`);
+    expect(accountRes.status).toBe(200);
+    expect(accountRes.body.email).toBe('demo@example.com');
+
+    // 2. Update username
+    const updateUsernameRes = await request(app)
+      .patch(`/api/users/${user.user_id}`)
+      .send({ username: 'demo_user_updated' });
+    expect(updateUsernameRes.status).toBe(200);
+    expect(updateUsernameRes.body.username).toBe('demo_user_updated');
+
+    // 3. Update email
+    const updateEmailRes = await request(app)
+      .patch(`/api/users/${user.user_id}`)
+      .send({ email: 'newdemo@example.com' });
+    expect(updateEmailRes.status).toBe(200);
+    expect(updateEmailRes.body.email).toBe('newdemo@example.com');
+
+    // 4. Reject duplicate username (maya_cs exists)
+    const dupUserRes = await request(app)
+      .patch(`/api/users/${user.user_id}`)
+      .send({ username: 'maya_cs' });
+    expect(dupUserRes.status).toBe(409);
+
+    // 5. Reject invalid email format
+    const badEmailRes = await request(app)
+      .patch(`/api/users/${user.user_id}`)
+      .send({ email: 'not-an-email' });
+    expect(badEmailRes.status).toBe(400);
+
+    // 6. Restore original username and email
+    const revertRes = await request(app)
+      .patch(`/api/users/${user.user_id}`)
+      .send({ username: 'demo_user', email: 'demo@example.com' });
+    expect(revertRes.status).toBe(200);
+  });
+
+  it('manages saved courses (lists, saves, and removes)', async () => {
+    const user = await db.selectFrom('users').select('user_id').where('username', '=', 'maya_cs').executeTakeFirstOrThrow();
+    const courseId = await courseIdFor('MATH 2164');
+
+    // 1. Initial saved courses for maya_cs
+    const initialRes = await request(app).get(`/api/users/${user.user_id}/saved-courses`);
+    expect(initialRes.status).toBe(200);
+    expect(Array.isArray(initialRes.body)).toBe(true);
+    expect(initialRes.body.length).toBeGreaterThan(0);
+
+    // 2. Check is_saved for MATH 2164 (should be false)
+    const checkBefore = await request(app).get(`/api/users/${user.user_id}/saved-courses/${courseId}`);
+    expect(checkBefore.status).toBe(200);
+    expect(checkBefore.body.is_saved).toBe(false);
+
+    // 3. Save MATH 2164
+    const saveRes = await request(app).post(`/api/users/${user.user_id}/saved-courses/${courseId}`);
+    expect(saveRes.status).toBe(200);
+    expect(saveRes.body.saved).toBe(true);
+
+    // 4. Verify it is now saved
+    const checkAfter = await request(app).get(`/api/users/${user.user_id}/saved-courses/${courseId}`);
+    expect(checkAfter.status).toBe(200);
+    expect(checkAfter.body.is_saved).toBe(true);
+
+    // 5. Un-save MATH 2164
+    const deleteRes = await request(app).delete(`/api/users/${user.user_id}/saved-courses/${courseId}`);
+    expect(deleteRes.status).toBe(200);
+    expect(deleteRes.body.saved).toBe(false);
+
+    // 6. Verify it is no longer saved
+    const checkFinal = await request(app).get(`/api/users/${user.user_id}/saved-courses/${courseId}`);
+    expect(checkFinal.status).toBe(200);
+    expect(checkFinal.body.is_saved).toBe(false);
   });
 });
 

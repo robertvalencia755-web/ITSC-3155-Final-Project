@@ -31,26 +31,30 @@
 
             <!-- User Profile Picture and Details -->
             <div class="profile-user-overview">
-                <div class="profile-avatar-container">
-                    <img src="images/default-avatar.svg" alt="Profile Picture" class="profile-avatar">
+                <div class="profile-avatar-container" id="avatar-container" role="button" tabindex="0" title="Click to change profile picture" aria-haspopup="dialog">
+                    <img src="/assets/images/DefaultProfile.jpeg" alt="Profile Picture" class="profile-avatar" id="profile-avatar-img">
+                    <div class="profile-avatar-overlay">
+                        <span>Change</span>
+                    </div>
+                    <span class="avatar-edit-badge" aria-hidden="true">&#9998;</span>
                 </div>
 
                 <div class="profile-details">
                     <div class="profile-row">
                         <span class="profile-label">Username:</span>
-                        <span class="profile-value">TemplateUser</span>
-                        <button type="button" class="btn btn-secondary btn-sm">Change</button>
+                        <span class="profile-value" id="profile-username">maya_cs</span>
+                        <button type="button" class="btn btn-secondary btn-sm" id="change-username-btn">Change</button>
                     </div>
 
                     <div class="profile-row">
                         <span class="profile-label">Email:</span>
-                        <span class="profile-value">templateuser@example.com</span>
-                        <button type="button" class="btn btn-secondary btn-sm">Change</button>
+                        <span class="profile-value" id="profile-email">maya@example.com</span>
+                        <button type="button" class="btn btn-secondary btn-sm" id="change-email-btn">Change</button>
                     </div>
 
                     <div class="profile-row">
                         <span class="profile-label">Account Created:</span>
-                        <span class="profile-value">10/28/2026</span>
+                        <span class="profile-value" id="profile-created">10/28/2026</span>
                     </div>
                 </div>
             </div>
@@ -79,39 +83,10 @@
         <section class="card-section">
             <div class="section-heading">
                 <h2>Saved Courses</h2>
-                <button type="button" class="btn btn-secondary btn-sm">See More</button>
             </div>
 
-            <div class="item-grid">
-                <!-- Saved item 1 -->
-                <div class="course-card">
-                    <div>
-                        <span class="dept">Computer Science</span>
-                        <h3>Software Engineering</h3>
-                        <p class="code">ITSC 3155</p>
-                    </div>
-                    <div class="rating-pill">4.5 / 5 ★</div>
-                </div>
-
-                <!-- Saved item 2 -->
-                <div class="course-card">
-                    <div>
-                        <span class="dept">Computer Science</span>
-                        <h3>Data Structures &amp; Algorithms</h3>
-                        <p class="code">ITCS 2214</p>
-                    </div>
-                    <div class="rating-pill">4.0 / 5 ★</div>
-                </div>
-
-                <!-- Saved item 3 -->
-                <div class="course-card">
-                    <div>
-                        <span class="dept">Software &amp; Information Systems</span>
-                        <h3>Intro to Info Security</h3>
-                        <p class="code">ITIS 3110</p>
-                    </div>
-                    <div class="rating-pill">4.2 / 5 ★</div>
-                </div>
+            <div class="item-grid" id="saved-courses-grid">
+                <p class="empty-section-message">Loading saved courses...</p>
             </div>
         </section>
 
@@ -119,104 +94,67 @@
         <section class="card-section">
             <div class="section-heading">
                 <h2>Your Reviews</h2>
-                <button type="button" class="btn btn-secondary btn-sm">See More</button>
             </div>
 
-            <!-- Review item 1 -->
-            <div class="profile-review-card">
-                <div class="review-top-row">
-                    <h3>ITSC 3155 - Software Engineering</h3>
-                    <span class="review-rating-badge">5 / 5 ★</span>
-                </div>
-                <div class="review-meta">
-                    <strong>Professor:</strong> Prof. Bruce Long &bull; <strong>Semester:</strong> Fall 2026
-                </div>
-                <p class="review-body">
-                    Great hands-on team project experience. Staying on schedule with sprint milestones and regular pull request reviews made the final submission seamless.
-                </p>
-            </div>
-
-            <!-- Review item 2 -->
-            <div class="profile-review-card">
-                <div class="review-top-row">
-                    <h3>ITCS 1212 - Intro to Computer Science I</h3>
-                    <span class="review-rating-badge">4 / 5 ★</span>
-                </div>
-                <div class="review-meta">
-                    <strong>Professor:</strong> Prof. Nadia Najjar &bull; <strong>Semester:</strong> Spring 2026
-                </div>
-                <p class="review-body">
-                    Clear grading criteria and helpful lab teaching assistants. Perfect course for getting comfortable with programming fundamentals.
-                </p>
-            </div>
-
-            <!-- Review item 3 -->
-            <div class="profile-review-card">
-                <div class="review-top-row">
-                    <h3>MATH 1241 - Calculus I</h3>
-                    <span class="review-rating-badge">3 / 5 ★</span>
-                </div>
-                <div class="review-meta">
-                    <strong>Professor:</strong> Prof. John Taylor &bull; <strong>Semester:</strong> Fall 2025
-                </div>
-                <p class="review-body">
-                    Challenging workload with weekly quizzes, but exam questions were directly aligned with the practice problem sets.
-                </p>
-            </div>
-        </section>
-
-        <!-- Liked Section -->
-        <section class="card-section">
-            <div class="section-heading">
-                <h2>Liked Reviews</h2>
-                <button type="button" class="btn btn-secondary btn-sm">See More</button>
-            </div>
-
-            <!-- Liked item 1 -->
-            <div class="liked-card">
-                <div class="review-top-row">
-                    <h3>ITCS 3160 - Database Design</h3>
-                    <span class="review-rating-badge">5 / 5 ★</span>
-                </div>
-                <div class="review-meta">
-                    Reviewed by <strong>maya_cs</strong> &bull; Prof. Harini Ramaprasad
-                </div>
-                <p class="review-body">
-                    &ldquo;The SQL and relational algebra projects are super relevant to real-world backend development. Make sure you practice normalization rules.&rdquo;
-                </p>
-            </div>
-
-            <!-- Liked item 2 -->
-            <div class="liked-card">
-                <div class="review-top-row">
-                    <h3>ITCS 3145 - Parallel and Distributed Computing</h3>
-                    <span class="review-rating-badge">4 / 5 ★</span>
-                </div>
-                <div class="review-meta">
-                    Reviewed by <strong>jordan_transfer</strong> &bull; Prof. Erik Saule
-                </div>
-                <p class="review-body">
-                    &ldquo;Covers OpenMP, MPI, and CUDA. The lab assignments take time, but the concepts are extremely rewarding if you enjoy low-level performance.&rdquo;
-                </p>
-            </div>
-
-            <!-- Liked item 3 -->
-            <div class="liked-card">
-                <div class="review-top-row">
-                    <h3>ITSC 2175 - Logic and Algorithms</h3>
-                    <span class="review-rating-badge">4 / 5 ★</span>
-                </div>
-                <div class="review-meta">
-                    Reviewed by <strong>priya_reviews</strong> &bull; Prof. Christine Richardson
-                </div>
-                <p class="review-body">
-                    &ldquo;Discrete math is heavy on proofs. Attending recitations and forming a study group made a huge difference in staying ahead.&rdquo;
-                </p>
+            <div id="user-reviews-list">
+                <p class="empty-section-message">Loading your reviews...</p>
             </div>
         </section>
 
     </main>
 
+    <!-- Upload Profile Picture Modal -->
+    <div class="modal-backdrop" id="avatar-modal" role="dialog" aria-modal="true" aria-labelledby="avatar-modal-title">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="avatar-modal-title">Change Profile Picture</h3>
+                <button type="button" class="modal-close-btn" id="modal-close-btn" aria-label="Close modal">&times;</button>
+            </div>
+
+            <div class="avatar-preview-wrapper">
+                <img src="/assets/images/DefaultProfile.jpeg" alt="Avatar preview" class="avatar-preview-img" id="avatar-preview-img">
+            </div>
+
+            <div class="upload-drop-zone" id="upload-drop-zone" role="button" tabindex="0">
+                <strong>Choose an image</strong> or drag and drop here
+                <p>PNG, JPG, or WebP up to 3MB</p>
+                <input type="file" id="avatar-file-input" accept="image/png, image/jpeg, image/webp" style="display: none;">
+            </div>
+
+            <div class="upload-status" id="upload-status"></div>
+
+            <div class="modal-actions">
+                <button type="button" class="btn btn-secondary" id="modal-cancel-btn">Cancel</button>
+                <button type="button" class="btn" id="modal-save-btn" disabled>Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Field Modal (Username / Email) -->
+    <div class="modal-backdrop" id="edit-field-modal" role="dialog" aria-modal="true" aria-labelledby="edit-field-title">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="edit-field-title">Change Username</h3>
+                <button type="button" class="modal-close-btn" id="edit-field-close-btn" aria-label="Close modal">&times;</button>
+            </div>
+
+            <form id="edit-field-form">
+                <div class="form-group">
+                    <label id="edit-field-label" for="edit-field-input">New Username</label>
+                    <input type="text" id="edit-field-input" class="modal-input" required autocomplete="off">
+                </div>
+
+                <div class="upload-status" id="edit-field-status"></div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="edit-field-cancel-btn">Cancel</button>
+                    <button type="submit" class="btn" id="edit-field-save-btn">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script type="module" src="/assets/js/header.js"></script>
+    <script type="module" src="/assets/js/profile.js"></script>
 </body>
 </html>
