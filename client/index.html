@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CourseLens | Find Your Next Course</title>
     <link rel="stylesheet" href="/assets/css/home.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
 </head>
 <body>
 
     <!-- Navigation -->
-    <header class="navbar">
+    <header class="navbar" data-site-header>
         <a href="/" class="logo">
     <i data-lucide="search"></i>
     <span>CourseLens</span>
@@ -113,10 +114,12 @@
         <div class="footer-content">
 
             <div class="footer-brand">
-                <h3 class="footer-logo">
-    <i data-lucide="search"></i>
-    <span>CourseLens</span>
-</h3>
+                <a href="/" class="footer-logo">
+    <img
+        src="/assets/images/FInal CourseLen Logo Design.png"
+        alt="CourseLens Home"
+    >
+</a>
                 <p>Making course discovery easier.</p>
             </div>
 
@@ -124,7 +127,7 @@
                 <h4>Quick Links</h4>
                 <a href="/">Home</a>
                 <a href="/pages/catalogue.html">Catalogue</a>
-                <a href="#about">About</a>
+                <a href="/pages/about.html">About</a>
             </div>
 
             <div class="footer-links">
@@ -142,5 +145,6 @@
     </footer>
 
 <script type="module" src="/assets/js/home.js"></script>
+<script type="module" src="/assets/js/header.js"></script>
 </body>
 </html>
