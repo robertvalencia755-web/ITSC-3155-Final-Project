@@ -23,6 +23,7 @@ skills covered) so others can decide what to register for.
         ├── app.ts           Express app: middleware and route mounting
         ├── server.ts        starts the app on PORT (default 3000)
         ├── routes/          one file per resource under /api
+        ├── auth/            password hashing and cookie sessions
         ├── Validation/      review validation shared by the API and the seed
         └── db/
             ├── database.ts  Kysely connection (reads DATABASE_URL)
@@ -109,12 +110,18 @@ Run these from the `server/` folder.
 
 ## API
 
-Every route returns JSON. Errors look like `{ "error": "Course not found" }` with a 400, 404
-or 500 status. CORS is open, so a frontend dev server on another port can call the API directly.
+Every route returns JSON. Errors look like `{ "error": "Course not found" }` with a 400, 401,
+404, 409 or 500 status. CORS allows any `http://localhost:<port>` (and any origin listed in
+`CLIENT_ORIGIN` in `server/.env`, comma-separated) with credentials, so a frontend dev server on
+another port can call the API and send the session cookie.
 
 | Method and path | Returns | Used by |
 |---|---|---|
 | `GET /health` | `{ "status": "ok" }` | checks |
+| `POST /api/auth/signup` | creates an account from `{ email, username, password }`, signs it in, 201 | Sign Up |
+| `POST /api/auth/login` | signs in with `{ login, password }`, where `login` is an email or a username; 401 `Incorrect email, username or password` otherwise | Log In |
+| `POST /api/auth/logout` | ends the session, 204 | Profile |
+| `GET /api/auth/me` | the signed-in `user_id`, `username`, `email`, `created_at`, or 401 | Profile, any page that needs to know |
 | `GET /api/courses` | every course with department and review averages | Catalogue, Home |
 | `GET /api/courses?q=okafor` | courses whose code, name, professor or a review skill matches | Catalogue search |
 | `GET /api/courses?department_id=1&professor_id=2` | filters, combinable with `q` | Catalogue filters |
@@ -126,7 +133,7 @@ or 500 status. CORS is open, so a frontend dev server on another port can call t
 | `GET /api/departments` | departments for filter dropdowns | Catalogue |
 | `GET /api/users/:id` | `user_id`, `username`, `created_at`, `review_count` (never email or password) | Profile |
 | `GET /api/users/:id/reviews` | the user's reviews with course and professor names | Profile |
-| `POST /api/reviews` | creates a review, returns it with status 201 | review form |
+| `POST /api/reviews` | creates a review as the signed-in user, 201; 401 when signed out | review form |
 
 Averages (`avg_rating`, `avg_difficulty`, `avg_usefulness`, `avg_time_commitment`) are rounded to
 two decimals and are `null` when there are no reviews. `avg_grade_points` counts A as 4 down to
@@ -137,7 +144,6 @@ A `POST /api/reviews` body looks like this. `grade`, `workload`, `skills`, `time
 
 ```json
 {
-  "user_id": 4,
   "professor_id": 3,
   "course_id": 4,
   "overall_rating": 4,
@@ -153,7 +159,26 @@ A `POST /api/reviews` body looks like this. `grade`, `workload`, `skills`, `time
 }
 ```
 
-There is no sign-in yet, so `user_id` is taken from the body. That changes once auth exists.
+The author is always the signed-in user. A `user_id` in the body is ignored.
+
+### Sign-in
+
+1. Sign-up or log-in sets a `courselens_session` cookie holding a random token. The cookie is
+   `HttpOnly` (page JavaScript cannot read it) and `SameSite=Lax` (other sites cannot make the
+   browser send it on a POST).
+2. The `sessions` table stores only the SHA-256 hash of that token, the user, and an expiry
+   seven days out. Log-out deletes the row.
+3. Every request runs `loadUser` (`server/src/auth/session.ts`), which sets `req.user` when the
+   cookie matches a live session. Put `requireAuth` in front of a route to return 401 when nobody
+   is signed in.
+4. Frontend code calls the API with `credentials: "include"`; `client/assets/js/session.js` has
+   `getCurrentUser`, `logIn`, `signUp` and `logOut` ready to import.
+
+Open the frontend at `http://localhost:<port>`, not `http://127.0.0.1:<port>`. The cookie belongs
+to `localhost`, and the browser will not send it from a page on `127.0.0.1`.
+
+Sign-up rules: a valid email (stored lowercase), a username of 3 to 30 letters, numbers or
+underscores (unique ignoring case), and a password of 8 to 128 characters.
 
 ## Sample data
 
@@ -170,9 +195,8 @@ All professors, users and reviews are made up. Every seeded account uses the pas
 | `priya_reviews` | priya@example.com |
 | `demo_user` | demo@example.com |
 
-Seeded passwords are hashed with Node's built-in `crypto.scrypt` and stored as
-`scrypt:<salt>:<hash>`. If sign-in ends up using a different hashing library, `hashPassword`
-in `server/src/db/seed.ts` should be changed to match so these accounts can log in.
+Passwords are hashed with Node's built-in `crypto.scrypt` and stored as
+`scrypt:<salt>:<hash>`. The seed and sign-up both use `server/src/auth/password.ts`.
 
 ## Database schema
 
@@ -183,6 +207,7 @@ erDiagram
     professors ||--o{ professor_courses : teaches
     courses ||--o{ professor_courses : "assigned to"
     users ||--o{ reviews : writes
+    users ||--o{ sessions : "signed in as"
     professor_courses ||--o{ reviews : "reviewed for"
 ```
 
@@ -193,6 +218,7 @@ erDiagram
 | `courses` | Course code and name, unique per department |
 | `professor_courses` | Which professor teaches which course |
 | `users` | Accounts (username, email, password hash) |
+| `sessions` | Signed-in browsers: token hash, user, expiry |
 | `reviews` | One user's review of one course taught by one professor |
 
 A review must point at a professor and course pair that exists in `professor_courses`.
