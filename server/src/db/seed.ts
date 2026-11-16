@@ -1,7 +1,7 @@
 import 'dotenv/config';
-import { randomBytes, scryptSync } from 'node:crypto';
 import { sql } from 'kysely';
 import { db } from './database.js';
+import { hashPassword } from '../auth/password.js';
 import { validateReview } from '../Validation/reviewValidation.js';
 
 // Sample data for local development. Professors and users are made up.
@@ -119,12 +119,6 @@ const reviews = [
 ];
 
 // Stored as scrypt:<salt>:<hash>, using Node's built-in crypto module.
-function hashPassword(password: string): string {
-  const salt = randomBytes(16).toString('hex');
-  const hash = scryptSync(password, salt, 64).toString('hex');
-  return `scrypt:${salt}:${hash}`;
-}
-
 async function main() {
   if (process.env.NODE_ENV === 'production') {
     throw new Error('Refusing to seed a production database.');
@@ -142,7 +136,7 @@ async function main() {
   await db.transaction().execute(async (trx) => {
     // Clear existing rows so the script can be run more than once.
     await sql`
-      TRUNCATE TABLE reviews, professor_courses, courses, professors, departments, users
+      TRUNCATE TABLE sessions, reviews, professor_courses, courses, professors, departments, users
       RESTART IDENTITY CASCADE
     `.execute(trx);
 
@@ -199,19 +193,21 @@ async function main() {
     const userRows = await trx
       .insertInto('users')
       .values(
-        users.map((user) => ({
-          username: user.username,
-          email: user.email,
-          password_hash: hashPassword(SEED_PASSWORD),
-          saved_courses:
-            user.username === 'maya_cs'
-              ? [
-                  courseIds.get('ITSC 3155')!,
-                  courseIds.get('ITSC 2214')!,
-                  courseIds.get('ITIS 3135')!,
-                ]
-              : [],
-        }))
+        await Promise.all(
+          users.map(async (user) => ({
+            username: user.username,
+            email: user.email,
+            password_hash: await hashPassword(SEED_PASSWORD),
+            saved_courses:
+              user.username === 'maya_cs'
+                ? [
+                    courseIds.get('ITSC 3155')!,
+                    courseIds.get('ITSC 2214')!,
+                    courseIds.get('ITIS 3135')!,
+                  ]
+                : [],
+          }))
+        )
       )
       .returning(['user_id', 'username'])
       .execute();

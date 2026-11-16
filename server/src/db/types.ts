@@ -11,6 +11,13 @@ export interface UsersTable {
   saved_courses: ColumnType<number[], number[] | undefined, number[]>;
 }
 
+export interface SessionsTable {
+  token_hash: string;
+  user_id: number;
+  created_at: ColumnType<Date, string | undefined, never>;
+  expires_at: Date;
+}
+
 export interface DepartmentsTable {
   department_id: Generated<number>;
   department_name: string;
@@ -54,6 +61,7 @@ export interface ReviewsTable {
 
 export interface Database {
   users: UsersTable;
+  sessions: SessionsTable;
   departments: DepartmentsTable;
   professors: ProfessorsTable;
   courses: CoursesTable;

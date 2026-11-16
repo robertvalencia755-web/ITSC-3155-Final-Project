@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { db } from '../db/database.js';
 import { isValidID, validateReview } from '../Validation/reviewValidation.js';
+import { requireAuth } from '../auth/session.js';
 
 const router = Router();
 
@@ -11,12 +12,12 @@ function normalizeSemester(semester: string): string {
 }
 
 // POST /api/reviews
-// There is no sign-in yet, so user_id comes from the request body.
-// Once auth exists, take it from the session instead.
-router.post('/', async (req, res) => {
+// Requires a signed-in user. The author is always the session's user; a user_id in the
+// body is ignored, so nobody can post a review under someone else's account.
+router.post('/', requireAuth, async (req, res) => {
   const body = req.body ?? {};
   const review = {
-    user_id: body.user_id,
+    user_id: req.user!.user_id,
     professor_id: body.professor_id,
     course_id: body.course_id,
     overall_rating: body.overall_rating,
@@ -33,7 +34,6 @@ router.post('/', async (req, res) => {
 
   if (
     !validateReview(review) ||
-    !isValidID(review.user_id) ||
     !isValidID(review.professor_id) ||
     (review.workload !== null && typeof review.workload !== 'string')
   ) {
@@ -42,16 +42,6 @@ router.post('/', async (req, res) => {
   }
 
   try {
-    const user = await db
-      .selectFrom('users')
-      .select('user_id')
-      .where('user_id', '=', review.user_id)
-      .executeTakeFirst();
-    if (!user) {
-      res.status(400).json({ error: 'User does not exist' });
-      return;
-    }
-
     const section = await db
       .selectFrom('professor_courses')
       .selectAll()

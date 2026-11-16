@@ -230,11 +230,18 @@ describe('professors, departments and users', () => {
 });
 
 describe('POST /api/reviews', () => {
+  // Posting needs a session, so sign in as the seeded demo_user first.
+  async function demoCookie(): Promise<string> {
+    const login = await request(app)
+      .post('/api/auth/login')
+      .send({ email: 'demo@example.com', password: 'password123' });
+    const cookies = login.headers['set-cookie'] as unknown as string[];
+    return cookies[0].split(';')[0];
+  }
+
   async function validBody() {
-    const user = await db.selectFrom('users').select('user_id').where('username', '=', 'demo_user').executeTakeFirstOrThrow();
     const professor = await db.selectFrom('professors').select('professor_id').where('name', '=', 'Carla Nguyen').executeTakeFirstOrThrow();
     return {
-      user_id: user.user_id,
       professor_id: professor.professor_id,
       course_id: await courseIdFor('ITSC 3155'),
       overall_rating: 4,
@@ -249,17 +256,31 @@ describe('POST /api/reviews', () => {
     };
   }
 
-  it('creates a review, keeping a decimal time commitment', async () => {
+  it('refuses a review when nobody is signed in', async () => {
     const response = await request(app).post('/api/reviews').send(await validBody());
+    expect(response.status).toBe(401);
+  });
+
+  it('creates a review as the signed-in user, ignoring any user_id in the body', async () => {
+    const maya = await db.selectFrom('users').select('user_id').where('username', '=', 'maya_cs').executeTakeFirstOrThrow();
+    const demo = await db.selectFrom('users').select('user_id').where('username', '=', 'demo_user').executeTakeFirstOrThrow();
+    const response = await request(app)
+      .post('/api/reviews')
+      .set('Cookie', await demoCookie())
+      .send({ ...(await validBody()), user_id: maya.user_id });
 
     expect(response.status).toBe(201);
     createdReviewIds.push(response.body.review_id);
+    expect(response.body.user_id).toBe(demo.user_id);
     expect(response.body).toMatchObject({ semester: 'Fall 2026', time_commitment: 5.5 });
     expect(response.body.date_written).toMatch(/^\d{4}-\d{2}-\d{2}$/);
   });
 
   it('rejects a review that fails validation', async () => {
-    const response = await request(app).post('/api/reviews').send({ ...(await validBody()), overall_rating: 9 });
+    const response = await request(app)
+      .post('/api/reviews')
+      .set('Cookie', await demoCookie())
+      .send({ ...(await validBody()), overall_rating: 9 });
     expect(response.status).toBe(400);
   });
 
@@ -267,6 +288,7 @@ describe('POST /api/reviews', () => {
     const body = await validBody();
     const response = await request(app)
       .post('/api/reviews')
+      .set('Cookie', await demoCookie())
       .send({ ...body, course_id: await courseIdFor('MATH 2164') });
 
     expect(response.status).toBe(400);
