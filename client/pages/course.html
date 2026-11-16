@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,9 +23,9 @@
 
         <section class="course-info">
             <div>
-                <p class="department">Computer Science</p>
-                <h1>Introduction to Computer Science</h1>
-                <p class="course-code">ITSC 1212</p>
+                <p class="department" id="course-department">Loading department...</p>
+                <h1 id="course-name">Loading course...</h1>
+                <p class="course-code" id="course-code"></p>
             </div>
 
             <button id="save-course" class="save-button" aria-pressed="false">
@@ -41,8 +42,6 @@
                 </div>
 
                 <div id="course-stats"></div>
-
-                <p class="review-count">Based on 24 student reviews</p>
             </section>
 
             <div class="right-column">
@@ -50,12 +49,8 @@
                 <section class="professor-section">
                     <h2>Professor Information</h2>
 
-                    <div class="professor-info">
-                        <div class="professor-avatar">P</div>
-                        <div>
-                            <h3>Professor Name</h3>
-                            <p>Computer Science</p>
-                        </div>
+                    <div id="professor-list">
+                        <p>Loading professors...</p>
                     </div>
                 </section>
 
@@ -69,11 +64,8 @@
                         <button class="review-button">Write a Review</button>
                     </div>
 
-                    <div class="review">
-                        <h3>Student Review</h3>
-                        <p>
-                            Student reviews for this course will appear here.
-                        </p>
+                    <div id="reviews-list">
+                        <p>Loading reviews...</p>
                     </div>
                 </section>
 
