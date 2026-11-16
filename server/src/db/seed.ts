@@ -198,6 +198,14 @@ async function main() {
             username: user.username,
             email: user.email,
             password_hash: await hashPassword(SEED_PASSWORD),
+            saved_courses:
+              user.username === 'maya_cs'
+                ? [
+                    courseIds.get('ITSC 3155')!,
+                    courseIds.get('ITSC 2214')!,
+                    courseIds.get('ITIS 3135')!,
+                  ]
+                : [],
           }))
         )
       )

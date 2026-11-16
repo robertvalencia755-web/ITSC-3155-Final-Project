@@ -3,12 +3,12 @@
 <head>
     <title>CourseLens - Course Page</title>
     <link rel="stylesheet" href="/assets/css/course.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
 </head>
 
 <body>
 
-
-    <header>
+    <header data-site-header>
         <img src="../assets/images/FInal CourseLen Logo Design.png" alt="CourseLens Logo">
 
         <nav>
@@ -18,57 +18,74 @@
         </nav>
     </header>
 
-
     <main>
 
         <section class="course-info">
-            <p class="department">Student Major</p>
-
-            <h1>Course Name</h1>
-            <p class="course-code">Course Code</p>
-        </section>
-
-
-        <section class="rating-section">
-
-            <h2>Course Overview</h2>
-
-            <div class="rating">
-                <h3>3 / 5</h3>
-                <p>Overall Course Rating</p>
-                <p>Based on student reviews</p>
+            <div>
+                <p class="department">Computer Science</p>
+                <h1>Introduction to Computer Science</h1>
+                <p class="course-code">ITSC 1212</p>
             </div>
 
+            <button id="save-course" class="save-button" aria-pressed="false">
+                ☆ Save Course
+            </button>
         </section>
 
+        <div class="course-layout">
 
-        <section class="professor-section">
+            <section class="rating-section">
+                <div class="section-heading">
+                    <h2>Course Statistics</h2>
+                    <p>Student feedback at a glance</p>
+                </div>
 
-            <h2>Professor Information</h2>
+                <div id="course-stats"></div>
 
-            <p><strong>Professor:</strong> Professor Name</p>
+                <p class="review-count">Based on 24 student reviews</p>
+            </section>
 
-            <p><strong>Department:</strong> Major</p>
+            <div class="right-column">
 
-        </section>
+                <section class="professor-section">
+                    <h2>Professor Information</h2>
 
+                    <div class="professor-info">
+                        <div class="professor-avatar">P</div>
+                        <div>
+                            <h3>Professor Name</h3>
+                            <p>Computer Science</p>
+                        </div>
+                    </div>
+                </section>
 
-        <section class="reviews-section">
+                <section class="reviews-section">
+                    <div class="reviews-heading">
+                        <div>
+                            <h2>Student Reviews</h2>
+                            <p>What students are saying</p>
+                        </div>
 
-            <div class="reviews-heading">
-                <h2>Student Reviews</h2>
+                        <button class="review-button">Write a Review</button>
+                    </div>
 
-                <button>Write a Review</button>
+                    <div class="review">
+                        <h3>Student Review</h3>
+                        <p>
+                            Student reviews for this course will appear here.
+                        </p>
+                    </div>
+                </section>
+
             </div>
 
-            <div class="review">
-                <h3>Student Review</h3>
-                <p>Reviews for this course will appear here.</p>
-            </div>
-
-        </section>
+        </div>
 
     </main>
+
+    <script type="module" src="/assets/js/header.js"></script>
+    <script type="module" src="/assets/js/course-stats.jsx"></script>
+    <script type="module" src="/assets/js/course-page.js"></script>
 
 </body>
 </html>
