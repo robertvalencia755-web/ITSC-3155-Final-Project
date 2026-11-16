@@ -6,17 +6,37 @@ import departmentsRouter from "./routes/departments.js";
 import professorsRouter from "./routes/professors.js";
 import reviewsRouter from "./routes/reviews.js";
 import usersRouter from "./routes/users.js";
+import authRouter from "./routes/auth.js";
+import { loadUser } from "./auth/session.js";
 
 const app = express();
 
-// Lets a frontend dev server on another port (for example Vite on 5173) call the API.
-app.use(cors());
+// Browsers only send the session cookie to another origin when the server names that origin
+// and allows credentials, so "any origin" (*) is not an option once there is sign-in.
+// Allowed: any http://localhost:<port> (Vite, Live Server) plus CLIENT_ORIGIN, comma-separated.
+const extraOrigins = (process.env.CLIENT_ORIGIN ?? "")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+export function isAllowedOrigin(origin: string): boolean {
+  return /^http:\/\/localhost(:\d+)?$/.test(origin) || extraOrigins.includes(origin);
+}
+
+app.use(
+  cors({
+    origin: (origin, callback) => callback(null, !origin || isAllowedOrigin(origin)),
+    credentials: true,
+  })
+);
 app.use(express.json());
+app.use(loadUser);
 
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "ok" });
 });
 
+app.use("/api/auth", authRouter);
 app.use("/api/courses", coursesRouter);
 app.use("/api/departments", departmentsRouter);
 app.use("/api/professors", professorsRouter);
