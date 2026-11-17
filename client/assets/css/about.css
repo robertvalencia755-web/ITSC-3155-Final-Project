@@ -1,3 +1,15 @@
+
+/* HISTORIA FONT */
+
+@font-face {
+    font-family: "Historia";
+    src: url("../fonts/HistoriaRegular-6Ro2x.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* COLORS */
+
 :root {
     --green: #005035;
     --card-green: #276b56;
@@ -13,15 +25,16 @@
 
 body {
     margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    color: var(--dark-text);
+    font-family: "Historia", Arial, sans-serif;
+    color: var(--white);
+    background: var(--green);
 }
 
 a {
     text-decoration: none;
 }
 
-/* Navigation */
+/* NAVIGATION - HEADER STYLES */
 
 .navbar {
     min-height: 80px;
@@ -73,7 +86,7 @@ a {
     color: var(--green);
 }
 
-/* Shared Section Styles */
+/* SHARED SECTION STYLES */
 
 .eyebrow {
     margin: 0 0 12px;
@@ -83,11 +96,11 @@ a {
     letter-spacing: 2px;
 }
 
-/* About Hero */
+/* ABOUT HERO */
 
 .about-hero {
-    background: var(--green);
-    color: var(--white);
+    background: var(--white);
+    color: var(--green);
     padding: 80px 20px;
     text-align: center;
 }
@@ -109,12 +122,14 @@ a {
     line-height: 1.6;
 }
 
-/* General About Section */
+/* GENERAL ABOUT SECTION */
 
 .about-section,
 .team-section {
     padding: 80px 5%;
     text-align: center;
+    background: var(--green);
+    color: var(--white);
 }
 
 .section-heading {
@@ -125,16 +140,17 @@ a {
 .section-heading h2 {
     margin: 0 0 20px;
     font-size: 36px;
+    color: var(--white);
 }
 
 .section-heading > p:last-child {
     margin: 0;
-    color: var(--muted-text);
+    color: #d1ded8;
     font-size: 19px;
     line-height: 1.6;
 }
 
-/* Purpose Cards */
+/* PURPOSE CARDS */
 
 .purpose-grid {
     max-width: 1100px;
@@ -147,8 +163,8 @@ a {
 .info-card {
     min-height: 260px;
     padding: 30px;
-    background: var(--card-green);
-    color: var(--white);
+    background: var(--white);
+    color: var(--green);
     border-radius: 10px;
     text-align: left;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -177,10 +193,11 @@ a {
     line-height: 1.5;
 }
 
-/* Goal Section */
+/* GOAL SECTION */
 
 .goal-section {
-    background: #f5f7f6;
+    background: var(--white);
+    color: var(--green);
     padding: 80px 5%;
 }
 
@@ -202,7 +219,7 @@ a {
     line-height: 1.7;
 }
 
-/* Team Section */
+/* TEAM SECTION */
 
 .team-grid {
     max-width: 1100px;
@@ -215,6 +232,7 @@ a {
 .team-card {
     padding: 25px 15px;
     background: var(--white);
+    color: var(--green);
     border: 1px solid #dce4e0;
     border-radius: 10px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -225,23 +243,27 @@ a {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
 }
 
+/* TEAM MEMBER PHOTOS */
+
+.team-card img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
 .team-card h3 {
     margin: 0 0 10px;
     color: var(--green);
     font-size: 20px;
 }
 
-.team-card p {
-    margin: 0;
-    color: var(--muted-text);
-    font-size: 15px;
-}
-
-/* Footer */
+/* FOOTER */
 
 .footer {
-    background: var(--green);
-    color: var(--white);
+    background: var(--white);
+    color: var(--green);
     padding: 20px 4% 15px;
 }
 
@@ -274,7 +296,7 @@ a {
 }
 
 .footer-links a {
-    color: var(--white);
+    color: var(--green);
     font-size: 18px;
 }
 
@@ -283,17 +305,17 @@ a {
 }
 
 .footer-bottom {
-    border-top: 1px solid #7b9b90;
+    border-top: 1px solid #dce4e0;
     padding-top: 12px;
 }
 
 .footer-bottom p {
     margin: 0;
     font-size: 15px;
-    color: #d1ded8;
+    color: var(--muted-text);
 }
 
-/* Responsive Layout */
+/* RESPONSIVE LAYOUT */
 
 @media (max-width: 900px) {
     .purpose-grid {
@@ -347,6 +369,8 @@ a {
         grid-template-columns: 1fr;
     }
 }
+
+/* REDUCED MOTION */
 
 @media (prefers-reduced-motion: reduce) {
     .info-card,
